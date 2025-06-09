@@ -1,3 +1,4 @@
+import type { Config } from '@/types/config/config'
 import { atom } from 'jotai'
 import { configFields } from '@/utils/atoms/config'
 import { getActiveTabUrl } from '@/utils/utils'
@@ -43,6 +44,15 @@ export const initIsIgnoreTabAtom = atom(null, async (get, set) => {
 
 // Sync atom to store the checked state
 export const isCurrentSiteInPatternsAtom = atom<boolean>(false)
+
+export function initIsInPatterns(config: Config, activeTabUrl: string) {
+  if (!activeTabUrl)
+    return false
+  const translateConfig = config.translate
+  return translateConfig.page.autoTranslatePatterns.some(pattern =>
+    activeTabUrl.includes(pattern),
+  )
+}
 
 // Async atom to initialize the checked state
 export const initIsCurrentSiteInPatternsAtom = atom(
