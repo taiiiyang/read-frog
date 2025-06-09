@@ -7,7 +7,7 @@ export function AlwaysTranslate() {
   const isCurrentSiteInPatterns = useAtomValue(isCurrentSiteInPatternsAtom)
   const initIsCurrentSiteInPatterns = useSetAtom(initIsCurrentSiteInPatternsAtom)
   const [, toggleCurrentSite] = useAtom(toggleCurrentSiteAtom)
-  const [isIgnoreTab] = useAtom(isIgnoreTabAtom)
+  const isIgnoreTab = useAtomValue(isIgnoreTabAtom)
   // Initialize the state when component mounts
   useEffect(() => {
     initIsCurrentSiteInPatterns()
