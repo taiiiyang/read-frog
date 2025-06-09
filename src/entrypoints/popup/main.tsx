@@ -4,12 +4,14 @@ import { useHydrateAtoms } from 'jotai/utils'
 import React from 'react'
 
 import ReactDOM from 'react-dom/client'
+
 import { TooltipProvider } from '@/components/ui/tooltip.tsx'
 import { configAtom } from '@/utils/atoms/config'
 import { isPageTranslatedAtom } from '@/utils/atoms/translation.ts'
+import { globalConfig } from '@/utils/config/config'
 import { DEFAULT_CONFIG } from '@/utils/constants/config'
 import App from './app.tsx'
-import { initIsInPatterns, isCurrentSiteInPatternsAtom } from './atom.ts'
+import { getIsInPatterns, isCurrentSiteInPatternsAtom } from './atom.ts'
 
 import '@/assets/tailwind/text-small.css'
 import '@/assets/tailwind/theme.css'
@@ -39,7 +41,7 @@ function HydrateAtoms({
 async function initApp() {
   const root = document.getElementById('root')!
   root.className = 'text-base antialiased w-[320px] bg-background'
-  const config = await storage.getItem<Config>('local:config') ?? DEFAULT_CONFIG
+  const config = await storage.getItem<Config>('local:config') ?? globalConfig ?? DEFAULT_CONFIG
 
   const activeTab = await browser.tabs.query({
     active: true,
@@ -57,7 +59,7 @@ async function initApp() {
   }
 
   const isInPatterns = activeTabUrl
-    ? initIsInPatterns(config, activeTabUrl)
+    ? await getIsInPatterns(config.translate)
     : false
 
   ReactDOM.createRoot(root).render(
@@ -65,7 +67,7 @@ async function initApp() {
       <JotaiProvider>
         <HydrateAtoms
           initialValues={[
-            [configAtom, config ?? DEFAULT_CONFIG],
+            [configAtom, config],
             [isPageTranslatedAtom, isPageTranslated],
             [isCurrentSiteInPatternsAtom, isInPatterns],
           ]}
