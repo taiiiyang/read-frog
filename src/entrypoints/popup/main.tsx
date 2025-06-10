@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom/client'
 import { TooltipProvider } from '@/components/ui/tooltip.tsx'
 import { configAtom } from '@/utils/atoms/config'
 import { isPageTranslatedAtom } from '@/utils/atoms/translation.ts'
-import { globalConfig } from '@/utils/config/config'
+import { globalConfig, loadGlobalConfigPromise } from '@/utils/config/config'
 import { DEFAULT_CONFIG } from '@/utils/constants/config'
 import App from './app.tsx'
 import { getIsInPatterns, isCurrentSiteInPatternsAtom } from './atom.ts'
@@ -39,16 +39,17 @@ function HydrateAtoms({
 }
 
 async function initApp() {
+  await loadGlobalConfigPromise
   const root = document.getElementById('root')!
   root.className = 'text-base antialiased w-[320px] bg-background'
-  const config = await storage.getItem<Config>('local:config') ?? globalConfig ?? DEFAULT_CONFIG
+  const config = globalConfig ?? DEFAULT_CONFIG
 
   const activeTab = await browser.tabs.query({
     active: true,
     currentWindow: true,
   })
+
   const tabId = activeTab[0].id
-  const activeTabUrl = activeTab[0].url
 
   let isPageTranslated: boolean = false
   if (tabId) {
@@ -58,7 +59,7 @@ async function initApp() {
       })) ?? false
   }
 
-  const isInPatterns = activeTabUrl
+  const isInPatterns = tabId
     ? await getIsInPatterns(config.translate)
     : false
 
