@@ -13,6 +13,7 @@ const EMPTY_TAB_URLS = [
 ]
 
 const EXTENSION_URLS = [
+  'chrome://extensions/',
   'chrome-extension://',
   'edge-extension://',
   'chrome://newtab/',

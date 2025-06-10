@@ -1,7 +1,7 @@
 {
   "name": "read-frog",
   "type": "module",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "private": true,
   "description": "Read Frog is a browser extension designed to help you learn languages deeply from any website.",
   "scripts": {
@@ -30,6 +30,7 @@
     "@radix-ui/react-alert-dialog": "^1.1.13",
     "@radix-ui/react-checkbox": "^1.2.3",
     "@radix-ui/react-dialog": "^1.1.13",
+    "@radix-ui/react-hover-card": "^1.1.14",
     "@radix-ui/react-progress": "^1.1.4",
     "@radix-ui/react-scroll-area": "^1.2.5",
     "@radix-ui/react-select": "^2.2.2",

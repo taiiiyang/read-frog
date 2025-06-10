@@ -1,10 +1,11 @@
 import { useAtom, useAtomValue } from 'jotai'
 import { Switch } from '@/components/ui/switch'
-import { isCurrentSiteInPatternsAtom, toggleCurrentSiteAtom } from '../atom'
+import { isCurrentSiteInPatternsAtom, isIgnoreTabAtom, toggleCurrentSiteAtom } from '../atom'
 
 export function AlwaysTranslate() {
   const isCurrentSiteInPatterns = useAtomValue(isCurrentSiteInPatternsAtom)
   const [, toggleCurrentSite] = useAtom(toggleCurrentSiteAtom)
+  const isIgnoreTab = useAtomValue(isIgnoreTabAtom)
 
   return (
     <div className="flex items-center justify-between gap-2">
@@ -14,6 +15,7 @@ export function AlwaysTranslate() {
       <Switch
         checked={isCurrentSiteInPatterns}
         onCheckedChange={toggleCurrentSite}
+        disabled={isIgnoreTab}
       />
     </div>
   )
