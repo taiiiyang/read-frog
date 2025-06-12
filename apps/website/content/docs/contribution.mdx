@@ -16,13 +16,24 @@ git clone https://github.com/xxxxx/read-frog.git
 cd read-frog
 
 # Start the project
-# Mac
 pnpm dev
-
-# Windows
-pnpm --filter=@read-frog/extension run dev
-pnpm --filter=@read-frog/website run dev
 ```
+
+<Callout title="window environment variable configuration">
+  If you are currently in a Windows environment, you need to add a `web-ext.config.ts` file in the `apps/extension` directory to explicitly specify the browser path.  
+  ```javascript
+  // apps/extension/web-ext.config.ts
+  import { defineWebExtConfig } from 'wxt';
+
+  export default defineWebExtConfig({
+    binaries: {
+        chrome: "path/to/your/chrome.exe",
+        firefox: "path/to/your/firefox.exe",
+        edge: "path/to/your/edge.exe"
+	  }
+  });
+  ```
+</Callout>
 
 <Callout title="pnpm dev can't load the extension automatically">
   If you use Chrome version 137 or higher, you need to download [Chrome for
@@ -48,7 +59,8 @@ git checkout -b docs/the-docs
 
 ### Merge Branch
 
-If the remote main branch gets updated and creates conflicts in our PR, we can fix it by merging the remote branch first.
+If the remote main branch gets updated and creates conflicts in our PR, you can resolve it by merging the remote branch in advance
+.
 
 ```bash 
 // Switch to the main branch

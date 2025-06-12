@@ -16,13 +16,23 @@ git clone https://github.com/xxxxx/read-frog.git
 cd read-frog
 
 # 启动项目
-# Mac
 pnpm dev
-
-# Windows
-pnpm --filter=@read-frog/extension run dev
-pnpm --filter=@read-frog/website run dev
 ```
+<Callout title="window 环境变量配置">
+  如果你当前在 Windows 环境，需要在 `apps/extension` 目录下添加 `web-ext.config.ts` 文件，显式指定浏览器路径。
+  ```javascript
+  // apps/extension/web-ext.config.ts
+  import { defineWebExtConfig } from 'wxt';
+
+  export default defineWebExtConfig({
+    binaries: {
+        chrome: "path/to/your/chrome.exe",
+        firefox: "path/to/your/firefox.exe",
+        edge: "path/to/your/edge.exe"
+	  }
+  });
+  ```
+</Callout>
 
 <Callout title="pnpm dev 无法自动加载扩展">
   如果你使用 Chrome 137 或更高版本，你需要下载 [Chrome for
@@ -47,7 +57,7 @@ git checkout -b docs/the-docs
 
 ### 分支合并
 
-当远程分支(main)更新时，会导致我们的 Pull Request 存在冲突，可以先通过提交合并远程分支解决
+当远程分支(main)更新时，会导致我们的 Pull Request 存在冲突，你可以通过提前合并远程分支来解决
 ```bash 
 // 切到 main 分支 
 git checkout main
