@@ -16,7 +16,12 @@ git clone https://github.com/xxxxx/read-frog.git
 cd read-frog
 
 # 启动项目
+# Mac
 pnpm dev
+
+# Windows
+pnpm --filter=@read-frog/extension run dev
+pnpm --filter=@read-frog/website run dev
 ```
 <Callout title="window 环境变量配置">
   如果你当前在 Windows 环境，需要在 `apps/extension` 目录下添加 `web-ext.config.ts` 文件，显式指定浏览器路径。
