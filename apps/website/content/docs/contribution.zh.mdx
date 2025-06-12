@@ -75,6 +75,18 @@ git rebase main
 git push origin docs/xxxx
 ```
 
+<Callout title="git 同步上游仓库">
+  如果你在同步上游仓库时遇到该错误
+  ```bash
+  fatal: 'upstream' does not appear to be a git repository
+  fatal: Could not read from remote repository.
+  ```
+  请尝试手动添加上游仓库
+  ```bash
+  git remote add upstream https://github.com/mengxi-ream/read-frog
+  ```
+</Callout>
+
 ## 发起 Pull Request
 
 发起 Pull Request 前，需要先添加 changeset
