@@ -18,7 +18,7 @@ cd read-frog
 # 启动项目
 pnpm dev
 ```
-<Callout title="window 环境变量配置">
+<Callout title="Windows 环境变量配置">
   如果你当前在 Windows 环境，需要在 `apps/extension` 目录下添加 `web-ext.config.ts` 文件，显式指定浏览器路径。
   ```javascript
   // apps/extension/web-ext.config.ts
@@ -59,19 +59,19 @@ git checkout -b docs/the-docs
 
 当远程分支(main)更新时，会导致我们的 Pull Request 存在冲突，你可以通过提前合并远程分支来解决
 ```bash 
-// 切到 main 分支 
+# 切到 main 分支 
 git checkout main
 
-// 同步上游仓库
+# 同步上游仓库
 git pull upstream main
 
-// 切回开发分支
+# 切回开发分支
 git checkout docs/xxxx
 
-// 同步远程分支
+# 同步远程分支
 git rebase main
 
-// 手动解决完冲突后，再推送代码
+# 手动解决完冲突后，再推送代码
 git push origin docs/xxxx
 ```
 
@@ -130,10 +130,10 @@ Summary >> ....
 如果你是中国大陆贡献者，那么当你要 push 代码的时候你得用
 
 ```bash
-// MAC
+# MAC
 SKIP_FREE_API=true git push
 
-// WINDOWS
+# WINDOWS
 $env:SKIP_FREE_API='true'
 git push
 ```

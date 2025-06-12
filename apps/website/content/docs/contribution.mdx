@@ -19,7 +19,7 @@ cd read-frog
 pnpm dev
 ```
 
-<Callout title="window environment variable configuration">
+<Callout title="Windows environment variable configuration">
   If you are currently in a Windows environment, you need to add a `web-ext.config.ts` file in the `apps/extension` directory to explicitly specify the browser path.  
   ```javascript
   // apps/extension/web-ext.config.ts
@@ -63,19 +63,19 @@ If the remote main branch gets updated and creates conflicts in our PR, you can 
 .
 
 ```bash 
-// Switch to the main branch
+# Switch to the main branch
 git checkout main
 
-// Pull the latest code from upstream
+# Pull the latest code from upstream
 git pull upstream main
 
-// Switch back to your local branch
+# Switch back to your local branch
 git checkout docs/xxxx
 
-// Merge the main branch into your local branch
+# Merge the main branch into your local branch
 git rebase main
 
-// After manually resolving the conflicts, push the code again
+# After manually resolving the conflicts, push the code again
 git push origin docs/xxxx
 ```
 
@@ -93,7 +93,7 @@ git push origin docs/xxxx
 
 ## Generating Pull Request
 
-Before generating a Pull Request, your need to add a changeset
+Before generating a Pull Request, you need to add a changeset
 
 ```bash
 # Add Changeset
@@ -135,10 +135,10 @@ We use the [Conventional Commits](https://www.conventionalcommits.org/) specific
 If you are a contributor from mainland China, when you need to push code, use the following command:
 
 ```bash
-// MAC
+# MAC
 SKIP_FREE_API=true git push
 
-// WINDOWS
+# WINDOWS
 $env:SKIP_FREE_API='true'
 git push
 ```
