@@ -111,6 +111,7 @@ export default function Content() {
       </div>
     )
   }
+
   return (
     <>
       {explainDataList.length > 0
