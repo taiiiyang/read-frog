@@ -1,6 +1,7 @@
 import type { ArticleExplanation, ArticleWord } from '@/types/content'
 import type { DOWNLOAD_FILE_ITEMS } from '@/utils/constants/side'
 import { saveAs } from 'file-saver'
+import { toast } from 'sonner'
 import { AST_TEMPLATE, MARKDOWN_TEMPLATE_TOKEN, PARAGRAPH_DEPTH, SENTENCE_TEMPLATE, WORDS_TEMPLATE } from '@/utils/constants/side'
 
 export type DOWNLOAD_FILE_TYPES = keyof typeof DOWNLOAD_FILE_ITEMS
@@ -19,13 +20,23 @@ class Downloader {
   }
 
   downloadMarkdown(explainDataList: ExplanationDataList) {
-    const article = this.markdownParser(explainDataList)
+    try {
+      const article = this.markdownParser(explainDataList)
 
-    const blob = new Blob([article], {
-      type: 'text/plain',
-    })
+      const blob = new Blob([article], {
+        type: 'text/plain',
+      })
 
-    saveAs(blob, `${this.title}.md`)
+      saveAs(blob, `${this.title}.md`)
+    }
+    catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+      else {
+        toast.error('Something went wrong when exporting...')
+      }
+    }
   }
 
   markdownParser(explainDataList: ExplanationDataList = []) {
