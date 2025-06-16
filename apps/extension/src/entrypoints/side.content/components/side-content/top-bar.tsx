@@ -4,7 +4,6 @@ import type {
   LangLevel,
 } from '@/types/config/languages'
 import type { ReadProviderNames } from '@/types/config/provider'
-
 import type { ArticleExplanation } from '@/types/content'
 import { SelectGroup } from '@radix-ui/react-select'
 import { useMutationState } from '@tanstack/react-query'
@@ -19,7 +18,6 @@ import {
   SelectLabel,
   SelectTrigger,
 } from '@/components/ui/select'
-
 import {
   Tooltip,
   TooltipContent,
@@ -215,20 +213,21 @@ function SourceLangSelect() {
 }
 
 function FileExport() {
-  const explainDataList = useMutationState({
+  const explainDataList = useMutationState<ArticleExplanation['paragraphs']>({
     filters: {
       mutationKey: ['explainArticle'],
     },
-    select: mutation => mutation.state.data,
-  }) as ArticleExplanation['paragraphs']
+    select: mutation => mutation.state.data as ArticleExplanation['paragraphs'],
+  })
 
+  const allow = !!explainDataList.length && explainDataList.every(explainData => !!explainData)
   return (
     <Select
       value=""
       onValueChange={async (fileType: DOWNLOAD_FILE_TYPES) => {
         downloader.download(explainDataList, fileType)
       }}
-      disabled={!explainDataList.length}
+      disabled={!allow}
     >
       <SelectTrigger
         hideChevron

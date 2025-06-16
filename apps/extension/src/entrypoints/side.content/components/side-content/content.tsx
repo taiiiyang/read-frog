@@ -117,7 +117,7 @@ export default function Content() {
       {explainDataList.length > 0
         && explainDataList[explainDataList.length - 1]
         ? (
-            <ScrollArea className="h-0 flex-auto">
+            <ScrollArea className="h-0 flex-1">
               <Explanation
                 articleExplanation={
                   explainDataList[

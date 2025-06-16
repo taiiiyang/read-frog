@@ -6,7 +6,8 @@ import { AST_TEMPLATE, MARKDOWN_TEMPLATE_TOKEN, PARAGRAPH_DEPTH, SENTENCE_TEMPLA
 
 export type DOWNLOAD_FILE_TYPES = keyof typeof DOWNLOAD_FILE_ITEMS
 
-type DOWNLOADER_MAP = Record<DOWNLOAD_FILE_TYPES, (explainDataList: ArticleExplanation['paragraphs'], opts?: object) => void>
+type ExplanationDataList = Array<ArticleExplanation['paragraphs']>
+type DOWNLOADER_MAP = Record<DOWNLOAD_FILE_TYPES, (explainDataList: ExplanationDataList, opts?: object) => void>
 
 class Downloader {
   title = document.title ?? 'Untitled'
@@ -14,11 +15,11 @@ class Downloader {
     md: this.downloadMarkdown,
   }
 
-  download(explainDataList: ArticleExplanation['paragraphs'], fileType: DOWNLOAD_FILE_TYPES, opts?: object) {
+  download(explainDataList: ExplanationDataList, fileType: DOWNLOAD_FILE_TYPES, opts?: object) {
     this.downloader[fileType].call(this, explainDataList, opts)
   }
 
-  downloadMarkdown(explainDataList: ArticleExplanation['paragraphs']) {
+  downloadMarkdown(explainDataList: ExplanationDataList) {
     try {
       const article = this.markdownParser(explainDataList)
 
@@ -35,7 +36,7 @@ class Downloader {
     }
   }
 
-  markdownParser(explainDataList: ArticleExplanation['paragraphs'] = []) {
+  markdownParser(explainDataList: ExplanationDataList = []) {
     const sentence = this.parseSentence(explainDataList)
 
     return AST_TEMPLATE
@@ -43,7 +44,7 @@ class Downloader {
       .replace(MARKDOWN_TEMPLATE_TOKEN.sentence, sentence)
   }
 
-  parseSentence(explainDataList: ArticleExplanation['paragraphs'] = []) {
+  parseSentence(explainDataList: ExplanationDataList = []) {
     const list = explainDataList.flat(PARAGRAPH_DEPTH)
     return list.reduce((sentence, paragraph, pIndex) => {
       const words = paragraph.words ?? []
